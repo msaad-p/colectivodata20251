@@ -2,6 +2,10 @@ import pandas as pd
 
 usuariosDataFrame=pd.read_excel("./data/usuarios_sistema_completo.xlsx")
 
+#SE RELLENAN COLUMNAS CON CADENAS DE TEXTO VACÍA PARA QUE NO RETORNE UN VALOR VACÍO
+usuariosDataFrame['direccion'] = usuariosDataFrame['direccion'].fillna('')
+usuariosDataFrame['especialidad'] = usuariosDataFrame['especialidad'].fillna('')
+usuariosDataFrame['fecha_nacimiento'] = usuariosDataFrame['fecha_nacimiento'].fillna('')
 #FILTROS
 
 #Tabla con estudiantes
@@ -21,7 +25,7 @@ docentesItagui=usuariosDataFrame.query('tipo_usuario=="docente" and direccion.st
 #Nacidos en los 90 o antes (del 90 o antes)
 nacidosAntesDel90=usuariosDataFrame.query('fecha_nacimiento <= "1990-12-31"')
 #Instructores o profesores mayores
-fechadtu=pd.to_datetime(usuariosDataFrame['fecha_nacimiento'], format='%Y-%m-%d')
-mayoresDe50=usuariosDataFrame.query('(2025-fechadtu.dt.year)>50')
+usuariosDataFrame['fecha_nacimiento']=pd.to_datetime(usuariosDataFrame['fecha_nacimiento'], format='%Y-%m-%d')
+mayoresDe50=usuariosDataFrame.query('(2025-fecha_nacimiento.dt.year)>50')
 #Usuarios nacidos del 2000 o después
 nacidosDespuesDel2000=usuariosDataFrame.query('fecha_nacimiento >= "2000-01-01"')
